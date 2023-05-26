@@ -1,0 +1,188 @@
+module 1
+
+query 1))
+SELECT FirstName, LastName, ProductName, SalesPrice
+FROM Sales
+INNER JOIN Customers ON Sales.CustomerID = Customers.CustomerID
+INNER JOIN Products ON Sales.ProductID = Products.ProductID
+WHERE SalesDate BETWEEN '2022-10-01' AND '2022-10-31'
+
+
+query 2))
+SELECT CustomerID, FirstName, LastName
+FROM Customer
+WHERE CustomerID NOT IN (SELECT CustomerID FROM Sales)
+
+query 3))
+SELECT
+    FirstName,
+    LastName,
+    SalePrice,
+    RecommendedSalePrice,
+    ABS(SalePrice - RecommendedSalePrice) AS Difference
+FROM
+    Sales
+
+query 4))
+
+
+query 5))
+SELECT
+    ProductCategoryName,
+    AVG(UnitPrice) AS AverageSalePrice
+FROM
+    Customer
+    INNER JOIN OrderDetail ON Customer.CustomerID = OrderDetail.CustomerID
+    INNER JOIN Product ON OrderDetail.ProductID = Product.ProductID
+    INNER JOIN ProductCategory ON Product.ProductCategoryID = ProductCategory.Product
+
+query 6))
+UPDATE Sales
+SET SalePrice = RecommendedSalePrice
+WHERE SaleDate BETWEEN '2022-06-10' AND '2022-06-20'
+
+query 7))
+SELECT
+    ProductCategoryName,
+    COUNT(*) AS NumberOfSales
+FROM
+    Sales
+    INNER JOIN Products ON Sales.ProductID = Products.ProductID
+    INNER JOIN ProductCategories ON Products.ProductCategoryID = ProductCategories.ProductCategoryID
+WHERE
+    Products.RecommendedPrice > (SELECT AVG(SalePrice) FROM Sales) +
+
+
+query 8)))
+SELECT salesperson_id, order_date, SUM(order_amount) AS total_order_amount FROM orders GROUP BY salesperson_id, order_date ORDER BY salesperson_id, order_date
+
+
+query 9))
+SELECT
+    SaleDate,
+    SUM(SaleAmount) OVER (ORDER BY SaleDate) AS RunningTotal
+FROM
+    Sales
+ORDER BY
+    SaleDate
+
+
+MODULE 2--->>>>
+
+
+query 1))
+SELECT * FROM Employees
+WHERE Name LIKE 'P%';
+
+query 2))
+SELECT COUNT(*) AS CountPermanent
+FROM Employees
+WHERE CandidateType = 'Permanent' AND Salary > 5000;
+
+
+query 3))
+SELECT *
+FROM Employees
+WHERE Email LIKE '%@gmail.com';
+
+query 4))
+SELECT *
+FROM Employees
+WHERE Department IN ('E-104', 'E-102');
+
+query 5))
+SELECT DepartmentName
+FROM Departments
+WHERE DeptID = 'E-102';
+
+
+query 6))
+SELECT SUM(Salary) AS TotalSalary
+FROM Employees
+WHERE CandidateType = 'Permanent';
+
+
+query 7))))
+SELECT Name
+FROM Employees
+WHERE Name LIKE '%a';
+
+
+query 8))
+SELECT p.ProjectID, COUNT(DISTINCT e.DepartmentID) AS NumDepartments
+FROM Projects p
+JOIN Employees e ON p.ProjectID = e.ProjectID
+GROUP BY p.ProjectID;
+
+
+query 9))
+SELECT COUNT(*) AS NumProjects
+FROM Projects
+WHERE YEAR(StartDate) = 2010;
+
+
+query 10))
+SELECT COUNT(*) AS NumProjects
+FROM Projects
+WHERE YEAR(StartDate) = YEAR(EndDate);
+
+
+query 11)))
+SELECT Name
+FROM Employees
+WHERE SUBSTRING(Name, 3, 1) = 'h';
+
+query 12))
+SELECT d.DepartmentName
+FROM Departments d
+JOIN Employees e ON d.DepartmentID = e.DepartmentID
+WHERE e.EmployeeID > 103;
+
+quwey 13)))
+SELECT e.Name
+FROM Employees e
+JOIN Employees supervisor ON e.SupervisorID = supervisor.EmployeeID
+WHERE supervisor.Name = 'Abhishek';
+
+
+query 14)))
+SELECT e.Name
+FROM Employees e
+JOIN Departments d ON e.DepartmentID = d.DepartmentID
+WHERE d.DepartmentName = 'HR'
+AND e.EmployeeID = d.DepartmentHeadID;
+
+
+
+query 15))SELECT e.Name
+FROM Employees e
+JOIN Employees supervisor ON e.SupervisorID = supervisor.EmployeeID
+WHERE e.CandidateType = 'Permanent' AND supervisor.SupervisorID IS NULL;
+
+
+query 16)))SELECT e.Name, e.Email
+FROM Employees e
+JOIN Departments d ON e.EmployeeID = d.DepartmentHeadID
+WHERE e.CandidateType != 'Permanent';
+
+
+query 17)))
+SELECT e.Name
+FROM Employees e
+JOIN Departments d ON e.DepartmentID = d.DepartmentID
+WHERE d.OffDay = 'Monday';
+
+query 18)))
+SELECT *
+FROM Clients
+WHERE Country = 'India';
+
+
+query 19)))
+SELECT e.*
+FROM Employees e
+JOIN Departments d ON e.DepartmentID = d.DepartmentID
+WHERE d.DepartmentName = 'Development';
+
+
+===================================== THE END==============================================
